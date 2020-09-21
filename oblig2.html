@@ -15,9 +15,9 @@
     
         // model
         let numbers = [7, 3, 1, 5, 8];
-        let chosenBar; // Variabel for hvilken stolpe som er valgt
+        let chosenBar = ' Ingen stolpe er valgt'; // Variabel for hvilken stolpe som er valgt
         let inputValue; // Variabel for hva som er skrevet i input-feltet
-        let disabledorNot = "disabled";
+        let disabledorNot = 'disabled';
         // view
         show();
         function show() {
@@ -31,12 +31,8 @@
                 }
                 
                 svgInnerHtml += createBar(numbers[i], i + 1, strokeorNot);
-                if(chosenBar!="ingen"){
-                    disabledorNot = "";
-                }
-                else if(chosenBar == "ingen"){
-                    disabledorNot = "disabled";
-                }
+                
+            
             }
             contentDiv.innerHTML = `
                 <svg id="chart" width="500" viewBox="0 0 80 60">
@@ -46,9 +42,9 @@
                 <br />
                 Verdi:
                 <input type="number" min="1" max="10" oninput="inputValue = this.value" />
-                <button>Legg til stolpe </button>
-                <button ${disabledorNot}>Endre valgt stolpe</button><br/>
-                <button ${disabledorNot}>Fjern valgt stolpe</button>
+                <button onclick= "addStolpe()">Legg til stolpe </button>
+                <button onclick="changeStolpe()" ${disabledorNot}>Endre valgt stolpe</button><br/>
+                <button onclick="removeStolpe()" ${disabledorNot}>Fjern valgt stolpe</button>
                 `;
         }
     
@@ -78,14 +74,37 @@ function selectBar(clickedBar){
     console.log("jeg har trykket på en stolpe", clickedBar)
 
     if(chosenBar == clickedBar){
-        chosenBar = "ingen";
-        disabledorNot = "disabled"
+        chosenBar = undefined;
+        disabledorNot = 'disabled'
     }
     else{
         chosenBar = clickedBar;
         disabledorNot = "";
     }
     chosenBar = clickedBar;
+    show();
+}
+
+function removeStolpe(){
+    numbers.splice(chosenBar -1, 1);
+    show();
+}
+
+function changeStolpe(){
+    if(inputValue < 1 || inputValue > 10){
+        alert('Verdien må være mellom 1 og 10');
+    }
+    else {numbers[chosenBar -1] = inputValue;
+    }
+    show();
+}
+
+function addStolpe(){
+    if(inputValue < 1 || inputValue > 10){
+        alert('Verdien må være mellom 1 og 10');
+    }
+    else{numbers.push(inputValue);
+    }
     show();
 }
 

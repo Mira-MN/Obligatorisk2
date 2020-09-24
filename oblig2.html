@@ -74,14 +74,14 @@ function selectBar(clickedBar){
     console.log("jeg har trykket på en stolpe", clickedBar)
 
     if(chosenBar == clickedBar){
-        chosenBar = undefined;
+        chosenBar = ' Ingen stolpe er valgt';
         disabledorNot = 'disabled'
     }
     else{
         chosenBar = clickedBar;
         disabledorNot = "";
     }
-    chosenBar = clickedBar;
+    
     show();
 }
 
